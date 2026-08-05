@@ -26,6 +26,14 @@ Unofficial and not affiliated with, endorsed by, or supported by Lidl, Monsieur
 Cuisine, or TecPal. "Monsieur Cuisine" and "Lidl" are trademarks of their
 respective owners. Use at your own risk, and be nice to the servers.
 
+> [!CAUTION]
+> **You are responsible for complying with Monsieur Cuisine's Terms of Service.**
+> This MCP was built for **personal use** — to get more enjoyment out of your own
+> kitchen robot — **not** for disrupting the service or infringing anyone's
+> intellectual property. Don't hammer the servers, don't scrape or redistribute
+> content that isn't yours, and don't publish recipes or photos you don't own the
+> rights to. How you use it is on you.
+
 ---
 
 ## What it does
