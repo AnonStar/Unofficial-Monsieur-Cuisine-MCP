@@ -83,7 +83,7 @@ These are just natural-language prompts to your assistant — it picks the tools
 - A real **Monsieur Cuisine / Lidl account** (login happens in a real browser)
 - A **Monsieur Cuisine Smart (MC3.0)** — the recipe-authoring features target
   this model only
-- Dependencies (installed via `uv sync`): `fastmcp`, `playwright`, `python-dotenv`
+- Dependencies (installed via `uv sync`): `fastmcp`, `httpx`, `playwright`
 
 ## Setup
 
@@ -100,9 +100,16 @@ uv run monsieur-cuisine-mcp-login
 
 Lidl's login (`accounts.lidl.com`) is interactive and CAPTCHA-protected, so
 there's no headless login — you log in **manually** in the browser window that
-opens. Once you're redirected back to `monsieur-cuisine.com`, the session
-cookies are saved to `~/.monsieur-cuisine-mcp/storage_state.json` and reused
-until they expire. Re-run the login command whenever the session lapses.
+opens. Once the session is established, the cookies are saved to
+`~/.monsieur-cuisine-mcp/storage_state.json` and reused until they expire.
+Re-run the login command whenever the session lapses.
+
+The login uses your installed **Google Chrome** when it's available (falling
+back to the bundled Chromium) and keeps its own browser profile in
+`~/.monsieur-cuisine-mcp/browser-profile`, so repeat logins look like the same
+returning device. If a login fails, it writes a timestamped trace — navigations,
+request statuses, console errors — to `~/.monsieur-cuisine-mcp/last-login.log`.
+No passwords and no request/response bodies are ever recorded.
 
 ### Run the server
 

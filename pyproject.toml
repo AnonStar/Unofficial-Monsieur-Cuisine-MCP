@@ -6,9 +6,13 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
 dependencies = [
-    "fastmcp>=2.0.0",
+    # Floor is 3.0 because that is the oldest release this has actually run on;
+    # the previous ">=2.0.0" was never tested against.
+    "fastmcp>=3.0",
+    # Used directly by the recipe client. It used to arrive only as a transitive
+    # dependency of fastmcp, which broke the moment fastmcp 4 switched to httpx2.
+    "httpx>=0.28",
     "playwright>=1.45",
-    "python-dotenv>=1.0",
 ]
 
 [project.scripts]

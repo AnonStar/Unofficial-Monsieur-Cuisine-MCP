@@ -14,9 +14,30 @@ MC_DOMAIN = "monsieur-cuisine.com"
 STATE_DIR = Path.home() / ".monsieur-cuisine-mcp"
 STORAGE_STATE_PATH = STATE_DIR / "storage_state.json"
 
-# Manual, browser-based authentication mechanism
-MC_AUTHENTICATION_TIMEOUT_SECONDS = 300
+# Manual, browser-based authentication mechanism. The timeout covers the whole
+# manual login (SSO redirect, credentials, any CAPTCHA/2FA and the redirect
+# back), so it is generous - the user is typing.
+MC_AUTHENTICATION_TIMEOUT_SECONDS = 600
 MC_AUTHENTICATION_SSO_DOMAIN = "accounts.lidl.com"
+
+# Browser profile reused by the manual login. Keeping one profile, instead of a
+# throwaway context per attempt, means the Lidl device id and the SSO/bot
+# protection cookies survive between attempts, so each login looks like the same
+# returning device rather than a brand-new one.
+MC_BROWSER_PROFILE_DIR = STATE_DIR / "browser-profile"
+
+# A failed login dumps a timestamped trace here (navigations, console errors,
+# request statuses) so the failure can be diagnosed instead of guessed at.
+# Credentials are never recorded: no request or response bodies are captured.
+MC_LOGIN_DIAGNOSTICS_PATH = STATE_DIR / "last-login.log"
+
+# Locale for the login browser, matching MC_LOGIN_ENTRY_URL's language.
+MC_BROWSER_LOCALE = "pl-PL"
+
+# Presence of any of these cookies on MC_DOMAIN means the session is
+# established. Polling for them is more reliable than matching the landing URL,
+# which varies with the SSO round trip.
+MC_SESSION_COOKIE_PREFIXES = ("wordpress_logged_in_", "lidl_sso_id_token")
 
 # Public recipe search API (no authentication required)
 MC_API_BASE_URL = "https://mc-api.tecpal.com"
